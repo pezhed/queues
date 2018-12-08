@@ -9,26 +9,58 @@ public class Dequeu {
 	public Dequeu(int s) {
 		maxSize = s;
 		dequeArray = new int[maxSize];
-		front = 0;
+		front = -1;
 		rear = -1;
 		nItems = 0;
 	}
 	
 	public void insertLeft(int value) {
-		if(rear == maxSize-1) {
-			rear = -1;
-		}
-		if(rear == -1) {
+
+		if(rear == -1 && front == -1 ) {
 			dequeArray[++rear] = value;
-		}else {
-			for(int i = nItems; i>0; i--) {
-				dequeArray[i] = dequeArray[i-1];
-			}
-			dequeArray[front] = value;
+			front++;
+		}
+		else if(rear >= front ) {
+			shiftTop();
+			dequeArray[front] = value;	
+	
+		}
+		else {
+			shiftBottom();
+			dequeArray[front] = value;	
 			rear++;
 		}
+		
 		nItems++;
 	}
+	private void shiftTop() {
+	
+		for(int i = rear; i >= front; i--) {
+		//	for(int i = nItems; i >= front; i--) {
+			if(i == maxSize-1)
+				dequeArray[0] = dequeArray[i];
+			else 
+				dequeArray[i+1] = dequeArray[i];
+		}
+		if(rear == maxSize-1)
+			rear = -1;
+		rear++;
+	}
+	private void shiftBottom() {
+
+		for(int i = rear; i >= 0; i--) {
+			dequeArray[i+1] = dequeArray[i];
+
+		}
+		for(int j = nItems; j >= front; j--) {
+			if(j == maxSize-1)
+				dequeArray[0] = dequeArray[j];
+			else 
+				dequeArray[j+1] = dequeArray[j];
+		}
+
+	}
+
 	
 	public void insertRight(int value) {
 		if(rear > maxSize ) {
