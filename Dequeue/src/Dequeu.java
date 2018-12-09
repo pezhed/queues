@@ -97,11 +97,6 @@ public class Dequeu {
 	
 	public void display() {
 		int j;
-//		if(front == rear) {
-//			System.out.println(array[front]);
-//			//System.out.print(" ");
-//		}
-		//print single Item or empty array
 		if(front == 0 && rear == -1) {
 			System.out.print("Array is Empty");
 			System.out.println("");
